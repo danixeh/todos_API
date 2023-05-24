@@ -11,6 +11,7 @@ const {
   getAllUsers,
   createUser,
   createCategory,
+  getAllCategories,
 } = require("../controllers/users.controllers");
 
 // create a router instance
@@ -19,6 +20,9 @@ const router = Router();
 
 // all todos
 router.get("/api/v1/todos", getAllTodos);
+
+// all todos
+router.get("/api/v1/categories", getAllCategories);
 
 // all users
 router.get("/api/v1/users", getAllUsers);

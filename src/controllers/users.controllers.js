@@ -11,6 +11,15 @@ const getAllTodos = async (req, res, next) => {
   }
 };
 
+const getAllCategories = async (req, res, next) => {
+  try {
+    const todos = await Categories.findAll();
+    res.json(todos);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await Users.findAll();
@@ -107,4 +116,5 @@ module.exports = {
   getAllUsers,
   createUser,
   createCategory,
+  getAllCategories,
 };
