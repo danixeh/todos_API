@@ -6,7 +6,7 @@ const express = require("express");
 require("dotenv").config(); // Start with require is equal to import and execute (only for this)
 const initModels = require("./models/initModels");
 initModels();
-const todosRoutes = require("./routes/users.routes");
+const UsersRoutes = require("./routes/users.routes");
 
 const db = require("./utils/database.js");
 const Todos = require("./models/users.models.js");
@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(todosRoutes);
+app.use(UsersRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on ${PORT} Port`);

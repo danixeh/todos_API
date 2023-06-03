@@ -12,6 +12,9 @@ const {
   createUser,
   createCategory,
   getAllCategories,
+  getPostsById,
+  getAllPosts,
+  getAllAnswers,
 } = require("../controllers/users.controllers");
 
 // create a router instance
@@ -25,13 +28,22 @@ router.get("/api/v1/todos", getAllTodos);
 router.get("/api/v1/categories", getAllCategories);
 
 // all users
+router.get("/api/v1/posts", getAllPosts);
+
+// all users
+router.get("/api/v1/answers", getAllAnswers);
+
+// all users
 router.get("/api/v1/users", getAllUsers);
 
 // obtain by todo by id
 router.get("/api/v1/todos/:id", getTodosById);
 
+// obtain by posts by id
+router.get("/api/v1/posts/:id", getPostsById);
+
 // create category
-router.post("/api/v1/category", createCategory);
+router.post("/api/v1/categories", createCategory);
 
 // create todo
 router.post("/api/v1/todos", createTodos);

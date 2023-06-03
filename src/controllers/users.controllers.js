@@ -1,6 +1,8 @@
 const Todos = require("../models/todos.models");
 const Categories = require("../models/categories.models");
 const Users = require("../models/users.models");
+const Posts = require("../models/post.models");
+const Answers = require("../models/answers.models");
 
 const getAllTodos = async (req, res, next) => {
   try {
@@ -20,6 +22,15 @@ const getAllCategories = async (req, res, next) => {
   }
 };
 
+const getAllAnswers = async (req, res, next) => {
+  try {
+    const answers = await Answers.findAll();
+    res.json(answers);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await Users.findAll();
@@ -29,6 +40,45 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getAllPosts = async (req, res, next) => {
+  try {
+    const posts = await Posts.findAll();
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getPostsById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const post = await Posts.findByPk(id, {
+      exclude: ["userId"],
+      include: [
+        {
+          model: Users,
+          attributes: ["id", "username"],
+        },
+        {
+          model: Categories,
+          attributes: ["id", "name_category"],
+        },
+        {
+          model: Answers,
+          include: [
+            {
+              model: Users,
+              attributes: ["id", "username"],
+            },
+          ],
+        },
+      ],
+    });
+    res.json(post);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 const getTodosById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -58,11 +108,31 @@ const createTodos = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    // extract request body
-    const newUser = req.body;
-    // insert into users = Todos.create
-    await Users.create(newUser);
-    // at the end we answer 201 state
+    const { username, email, password, rolId } = req.body;
+    if (typeof username != "string" || !username) {
+      return res.status(400).json({
+        error: "Invalid username",
+        message: "Username cannot be null or empty",
+      });
+    }
+    if (typeof email != "string" || !email) {
+      return res.status(400).json({
+        error: "Invalid mail",
+        message: "email cannot be null or empty",
+      });
+    }
+    if (typeof password != "string" || !password) {
+      return res.status(400).json({
+        error: "Invalid password",
+        message: "passsword cannot be null or empty",
+      });
+    }
+
+    await Users.create({
+      username,
+      email,
+      password,
+    });
     res.status(201).send();
   } catch (error) {
     res.status(400).json(error);
@@ -117,4 +187,7 @@ module.exports = {
   createUser,
   createCategory,
   getAllCategories,
+  getPostsById,
+  getAllPosts,
+  getAllAnswers,
 };

@@ -10,8 +10,19 @@ const Users = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    firstname: {
+      type: DataTypes.STRING(30),
+    },
+    lastname: {
+      type: DataTypes.STRING(30),
+    },
     username: {
       type: DataTypes.STRING(30),
+      allowNull: false,
+    },
+    rolId: {
+      type: DataTypes.INTEGER,
+      field: "rol_id",
       allowNull: false,
     },
     password: {

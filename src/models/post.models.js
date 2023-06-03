@@ -1,36 +1,34 @@
 const db = require("../utils/database"); // bring the database
 const { DataTypes } = require("sequelize"); //in order to handle the Types meaning with sql language
 
-const Todos = db.define(
-  "todos",
+const Post = db.define(
+  "post",
   {
-    //id, title, description, completed
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     title: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.TEXT(30),
       allowNull: false,
-    },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
     },
     userId: {
       type: DataTypes.INTEGER,
       field: "user_id",
       allowNull: false,
     },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      field: "category_id",
+      allowNull: false,
+    },
   },
   {
-    timestamps: false,
+    timestamps: true,
+    deletedAt: false,
+    updatedAt: false,
+    createdAt: "created_at",
   }
 );
 
-module.exports = Todos;
+module.exports = Post;

@@ -1,10 +1,16 @@
 const db = require("../utils/database"); // bring the database
 const { DataTypes } = require("sequelize"); //in order to handle the Types meaning with sql language
 
-const Categories = db.define(
-  "categories",
+const Roles = db.define(
+  "roles",
   {
-    name_category: {
+    //id, title, description, completed
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    rol: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
@@ -18,4 +24,4 @@ const Categories = db.define(
   }
 );
 
-module.exports = Categories;
+module.exports = Roles;
