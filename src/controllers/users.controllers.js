@@ -3,6 +3,8 @@ const Categories = require("../models/categories.models");
 const Users = require("../models/users.models");
 const Posts = require("../models/post.models");
 const Answers = require("../models/answers.models");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getAllTodos = async (req, res, next) => {
   try {
@@ -108,7 +110,7 @@ const createTodos = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { username, email, password, rolId } = req.body;
+    const { username, email, password } = req.body;
     if (typeof username != "string" || !username) {
       return res.status(400).json({
         error: "Invalid username",
@@ -128,10 +130,13 @@ const createUser = async (req, res) => {
       });
     }
 
+    //we have to hash password
+    const hashed = await bcrypt.hash(password, 10);
+    // we create the user
     await Users.create({
       username,
       email,
-      password,
+      password: hashed,
     });
     res.status(201).send();
   } catch (error) {
@@ -179,15 +184,15 @@ const updateTodos = async (req, res) => {
 
 module.exports = {
   getAllTodos,
+  getAllCategories,
+  getAllAnswers,
+  getAllUsers,
+  getAllPosts,
+  getPostsById,
   getTodosById,
   createTodos,
-  deleteTodos,
-  updateTodos,
-  getAllUsers,
   createUser,
   createCategory,
-  getAllCategories,
-  getPostsById,
-  getAllPosts,
-  getAllAnswers,
+  deleteTodos,
+  updateTodos,
 };
