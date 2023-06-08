@@ -7,22 +7,22 @@ const createUserValidation = [
     .exists()
     .withMessage("is not sending username")
     .notEmpty()
-    .withMessage("should not be empty")
+    .withMessage("username should not be empty")
     .isString()
-    .withMessage("this have to be a String")
+    .withMessage("username have to be a String")
     .isLength({ min: "3", max: "30" })
     .withMessage(
-      "this have to have minimum 3 characters and maximum 30 characters"
+      "username have to have minimum 3 characters and maximum 30 characters"
     ),
-  check("email", "error username field")
+  check("email", "error mail field")
     .exists()
     .withMessage("is not sending email")
     .notEmpty()
-    .withMessage("it should not be empty")
+    .withMessage("email should not be empty")
     .isString()
-    .withMessage("it have to be a String")
+    .withMessage("email have to be a String")
     .isEmail()
-    .withMessage("it have to be a email")
+    .withMessage("email have to be a email")
     .isLength({ min: "4", max: "50" })
     .withMessage(
       "this have to have minimum 4 characters and maximum 50 characters"

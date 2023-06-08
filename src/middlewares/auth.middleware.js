@@ -10,7 +10,7 @@ const authenticate = (req, res, next) => {
       return next({
         status: 401,
         name: "there is not key token",
-        message: "cat out token",
+        message: "cat out of token",
       });
     }
     // if there are token

@@ -6,14 +6,15 @@ const express = require("express");
 require("dotenv").config(); // Start with require is equal to import and execute (only for this)
 const initModels = require("./models/initModels");
 initModels();
-const UsersRoutes = require("./routes/users.routes");
-const PostRoutes = require("./routes/post.routes");
 
 const db = require("./utils/database.js");
 const Todos = require("./models/users.models.js");
 const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler.middleware");
 const logError = require("./middlewares/logError.middleware");
+const ormErrorHandler = require("./middlewares/ormErrorHandler.middleware");
+const apiRoutes = require("./routes");
+const errorRoutes = require("./routes/errors.routes");
 
 const PORT = process.env.PORT || 8000;
 
@@ -32,16 +33,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(UsersRoutes);
-app.use(PostRoutes);
+apiRoutes(app);
 
-app.use(logError, errorHandler);
-
-app.use("*", (req, res) => {
-  res.status(404).json({
-    message: "backend is working we will see you soon",
-  });
-});
+errorRoutes(app);
 
 app.listen(PORT, () => {
   console.log(`server running on ${PORT} Port`);

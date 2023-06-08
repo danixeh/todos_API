@@ -6,16 +6,17 @@ const Answers = require("../models/answers.models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const createPost = async (req, res) => {
+const createPost = async (req, res, next) => {
   try {
     // extract request body
     const newPost = req.body;
+
     // insert into users = Todos.create
     await Posts.create(newPost);
     // at the end we answer 201 state
     res.status(201).send();
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 };
 
@@ -32,21 +33,23 @@ const createTodos = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
+    const { username, email, password } = req.body;
     const hashed = await bcrypt.hash(password, 10);
     await Users.create({
       username,
       email,
       password: hashed,
     });
+
     res.status(201).send();
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 };
 
-const createCategory = async (req, res) => {
+const createCategory = async (req, res, next) => {
   try {
     // extract request body
     const newCategory = req.body;
@@ -55,7 +58,7 @@ const createCategory = async (req, res) => {
     // at the end we answer 201 state
     res.status(201).send();
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 };
 
@@ -100,7 +103,7 @@ const login = async (req, res, next) => {
 
     // afterwards we need to acces to the key token user
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 };
 
