@@ -16,6 +16,7 @@ const {
   getAllPosts,
   getAllAnswers,
   login,
+  deleteUser,
 } = require("../controllers/users.controllers");
 
 // create a router instance
@@ -23,30 +24,30 @@ const {
 const router = Router();
 
 // all todos
-router.get("/api/v1/todos", getAllTodos);
-
-// all todos
-router.get("/api/v1/categories", getAllCategories);
+router.get("/todos", getAllTodos);
 
 // all posts
-router.get("/api/v1/posts", getAllPosts);
+router.get("/posts", getAllPosts);
 
 // all users
-router.get("/api/v1/answers", getAllAnswers);
+router.get("/answers", getAllAnswers);
 
 // all users
-router.get("/api/v1/users", getAllUsers);
+router.get("/users", getAllUsers);
 
 // obtain by todo by id
-router.get("/api/v1/todos/:id", getTodosById);
+router.get("/todos/:id", getTodosById);
 
 // obtain by posts by id
-router.get("/api/v1/posts/:id", getPostsById);
+router.get("/posts/:id", getPostsById);
 
 // Delete todo
-router.delete("/api/v1/todos/:id", deleteTodos);
+router.delete("/todos/:id", deleteTodos);
+
+// Delete todo
+router.delete("/User/:id", deleteUser);
 
 //Update todo
-router.put("/api/v1/todos/:id", updateTodos);
+router.put("/todos/:id", updateTodos);
 
 module.exports = router;

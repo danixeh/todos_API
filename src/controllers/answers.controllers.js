@@ -1,20 +1,13 @@
-2;
-const Answers = require("../models/answers.controllers.json");
+const Answers = require("../models/answers.models");
 
-const createAnswuers = async (req, res) => {
+const createAnswer = async (req, res, next) => {
   try {
-    res.json({});
+    const { content, userId, postId } = req.body;
+    await Answers.create({ content, userId, postId });
+    res.status(201).send();
   } catch (error) {
-    res.status(400).json(error);
+    next(error);
   }
 };
 
-const dd = async (req, res) => {
-  try {
-    res.json({});
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
-module.exports = createAnswuers;
+module.exports = createAnswer;

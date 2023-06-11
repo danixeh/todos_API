@@ -15,8 +15,10 @@ const logError = require("./middlewares/logError.middleware");
 const ormErrorHandler = require("./middlewares/ormErrorHandler.middleware");
 const apiRoutes = require("./routes");
 const errorRoutes = require("./routes/errors.routes");
-
+const transporter = require("./utils/mailer");
 const PORT = process.env.PORT || 8000;
+
+// temporally
 
 db.authenticate()
   .then(() => console.log("Database connected"))

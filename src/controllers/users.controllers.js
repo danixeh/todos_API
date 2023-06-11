@@ -81,6 +81,7 @@ const getPostsById = async (req, res, next) => {
     res.status(400).json(error);
   }
 };
+
 const getTodosById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -180,6 +181,29 @@ const updateTodos = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { completed } = req.body;
+    await Todos.update({ completed }, { where: { id } });
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Users.destroy({
+      where: { id },
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 // export controllers
 
 module.exports = {
@@ -195,4 +219,6 @@ module.exports = {
   createCategory,
   deleteTodos,
   updateTodos,
+  deleteUser,
+  updateUser,
 };

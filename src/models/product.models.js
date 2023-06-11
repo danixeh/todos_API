@@ -1,8 +1,8 @@
 const db = require("../utils/database"); // bring the database
 const { DataTypes } = require("sequelize"); //in order to handle the Types meaning with sql language
 
-const Users = db.define(
-  "users",
+const Product = db.define(
+  "product",
   {
     //id, title, description, completed
     id: {
@@ -10,37 +10,35 @@ const Users = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    name: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    password: {
-      type: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING(30),
       allowNull: false,
     },
-    avatar: {
-      type: DataTypes.STRING,
-      // allowNull: false,
-    },
-    rolId: {
+    price: {
       type: DataTypes.INTEGER,
-      field: "rol_id",
-      defaultValue: 1,
       allowNull: false,
     },
-    validUser: {
+    availableQty: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
-      fields: "valid_user",
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      field: "product_image",
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      field: "user_id",
+      allowNull: false,
     },
   },
   {
@@ -48,4 +46,4 @@ const Users = db.define(
   }
 );
 
-module.exports = Users;
+module.exports = Product;
