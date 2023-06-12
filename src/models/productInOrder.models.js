@@ -1,8 +1,8 @@
 const db = require("../utils/database"); // bring the database
 const { DataTypes } = require("sequelize"); //in order to handle the Types meaning with sql language
 
-const ProductInOrder = db.define(
-  "productInOrder",
+const Productinorder = db.define(
+  "product_in_order",
   {
     //id, title, description, completed
     id: {
@@ -30,8 +30,11 @@ const ProductInOrder = db.define(
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
+    deletedAt: false,
+    updatedAt: false,
+    createdAt: "created_at",
   }
 );
 
-module.exports = ProductInOrder;
+module.exports = Productinorder;

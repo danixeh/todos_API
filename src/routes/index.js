@@ -1,11 +1,11 @@
-const postRoutes = require("./post.routes");
+const setUpRoutes = require("./setup.routes");
 const userRoutes = require("./users.routes");
-const categoriesRoutes = require("./categories.routes");
+const purchaseRoutes = require("./purchase.routes");
 
 const apiRoutes = (app) => {
-  app.use(postRoutes);
+  app.use(setUpRoutes);
   app.use(userRoutes);
-  app.use(categoriesRoutes);
+  app.use(purchaseRoutes);
 };
 
 module.exports = apiRoutes;

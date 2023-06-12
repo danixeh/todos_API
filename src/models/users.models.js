@@ -28,7 +28,7 @@ const Users = db.define(
     },
     avatar: {
       type: DataTypes.STRING,
-      // allowNull: false,
+      defaultValue: "image",
     },
     rolId: {
       type: DataTypes.INTEGER,
@@ -40,7 +40,7 @@ const Users = db.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
-      fields: "valid_user",
+      field: "valid_user",
     },
   },
   {

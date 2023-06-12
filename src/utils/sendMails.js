@@ -6,7 +6,7 @@ const sanMail = (email, doc, attachments) => {
   transporter
     .sendMail({
       from: "danielcaro317@gmail.com",
-      to: [email, "dani@gmail.com"],
+      to: [email],
       subject: "welcome",
       text: "Test",
       html: doc,
@@ -17,7 +17,7 @@ const sanMail = (email, doc, attachments) => {
 };
 
 const sendWelcomeMail = async (email, data) => {
-  const filePath = path.join(__dirname, "../views/example.ejs");
+  const filePath = path.join(__dirname, "../views/welcomemail.ejs");
   const doc = await ejs.renderFile(filePath, data);
   const attachments = [
     {

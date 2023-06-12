@@ -17,7 +17,11 @@ const {
   getPostWithAnswer,
   validateEmail,
   createRol,
-} = require("../controllers/post.controllers");
+  getAllRoles,
+  createProduct,
+  updateProduct,
+  getAllProducts,
+} = require("../controllers/setup.controllers");
 
 const { categoriesValidation } = require("../validators/categories.validators");
 const { createAnswerValidator } = require("../validators/answer.validator");
@@ -52,6 +56,18 @@ router.post(
 
 // create user
 router.post("/users", createUser);
+
+// create user
+router.post("/product", createProduct);
+
+// create user
+router.get("/products", getAllProducts);
+
+//Update todo
+router.put("/product/:id", updateProduct);
+
+// create user
+router.get("/rol", getAllRoles);
 
 // create user
 router.post("/email-validate", validateEmail);

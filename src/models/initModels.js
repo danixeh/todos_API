@@ -10,10 +10,10 @@ const Categories = require("../models/categories.models");
 const Todos = require("../models/todos.models");
 
 const Answers = require("../models/answers.models");
-const Post = require("../models/post.models");
+const Post = require("./post.models");
 
 const initModels = () => {
-  Users.hasMany(Car, { foreignKey: "userId" });
+  Users.hasOne(Car, { foreignKey: "userId" });
   Car.belongsTo(Users, { foreignKey: "userId" });
 
   Users.hasMany(Order, { foreignKey: "userId" });

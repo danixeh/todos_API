@@ -23,7 +23,6 @@ const Order = db.define(
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      allowNull: false,
     },
   },
   {

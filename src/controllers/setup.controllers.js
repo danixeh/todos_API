@@ -5,9 +5,10 @@ const Posts = require("../models/post.models");
 const Answers = require("../models/answers.models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { post } = require("../routes/categories.routes");
+const { post } = require("../routes/purchase.routes");
 const { sendWelcomeMail } = require("../utils/sendMails");
 const Roles = require("../models/roles.models");
+const Products = require("../models/product.models");
 require("dotenv").config();
 
 const createPost = async (req, res, next) => {
@@ -19,6 +20,24 @@ const createPost = async (req, res, next) => {
     await Posts.create(newPost);
     // at the end we answer 201 state
     res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllRoles = async (req, res, next) => {
+  try {
+    const todos = await Roles.findAll();
+    res.json(todos);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllProducts = async (req, res, next) => {
+  try {
+    const products = await Products.findAll();
+    res.json(products);
   } catch (error) {
     next(error);
   }
@@ -98,6 +117,17 @@ const createRol = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { description } = req.body;
+    await Products.update({ description }, { where: { id } });
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 const createUser = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
@@ -107,6 +137,7 @@ const createUser = async (req, res, next) => {
       email,
       password: hashed,
     });
+
     // from here it is not going to execute if there is an error
 
     res.status(201).send();
@@ -131,6 +162,16 @@ const createCategory = async (req, res, next) => {
   try {
     const { category, description } = req.body;
     await Categories.create({ category, description });
+    res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createProduct = async (req, res, next) => {
+  try {
+    const { name, description, price, available_qty, userId } = req.body;
+    await Products.create({ name, description, price, available_qty, userId });
     res.status(201).send();
   } catch (error) {
     next(error);
@@ -226,4 +267,8 @@ module.exports = {
   getPostWithAnswer,
   validateEmail,
   createRol,
+  getAllRoles,
+  createProduct,
+  updateProduct,
+  getAllProducts,
 };

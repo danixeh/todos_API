@@ -1,13 +1,14 @@
 const db = require("../utils/database"); // bring the database
 const { DataTypes } = require("sequelize"); //in order to handle the Types meaning with sql language
 
-const ProductInCart = db.define(
-  "productInCart",
+const Productincart = db.define(
+  "product_in_cart",
   {
     //id, title, description, completed
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+
       autoIncrement: true,
     },
     carId: {
@@ -38,4 +39,4 @@ const ProductInCart = db.define(
   }
 );
 
-module.exports = ProductInCart;
+module.exports = Productincart;

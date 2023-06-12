@@ -19,21 +19,22 @@ const Product = db.define(
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     availableQty: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      field: "available_qty",
+      defaultValue: true,
     },
     status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.ENUM("purchased", "notPurchased"),
+      defaultValue: "notPurchased",
     },
     image: {
       type: DataTypes.STRING,
       field: "product_image",
-      allowNull: false,
+      defaultValue: "image",
     },
     userId: {
       type: DataTypes.INTEGER,
@@ -47,3 +48,6 @@ const Product = db.define(
 );
 
 module.exports = Product;
+
+// insert into products(name, description, price, available_qty, status, product_image, user_id)
+// values('banana', 'banan bag 1kg', 4.99, true, false, 'image', 1);
